@@ -1,5 +1,4 @@
 <template>
-
   <main>
     hello
   </main>
