@@ -1,8 +1,10 @@
 <template>
-  <main class="container mx-auto my-1 space-y-1">
+  <main class="container mx-auto space-x-auto my-4 space-y-4">
     <h1 class="text-3xl text-center text-teal-800 font-semibold">Abner's Event Booking Application!</h1>
     <h2 class="text-xl text-center text-teal-800 underline">All Available Events</h2>
-    <EventCardComponent />
+    <section class="grid grid-cols-2 gap-4">
+      <EventCardComponent v-for="i in 8" :key="i"/>
+    </section>
     <h2 class="text-xl text-center text-teal-800 underline">Your Booked Events</h2>
   </main>
 </template>
