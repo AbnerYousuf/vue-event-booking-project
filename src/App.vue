@@ -3,7 +3,7 @@
     <h1 class="text-3xl text-center text-teal-800 font-semibold">Abner's Event Booking Application!</h1>
     <h2 class="text-xl text-center text-teal-800 underline">All Available Events</h2>
     <section class="grid grid-cols-2 gap-4">
-      <EventCardComponent v-for="i in 8" :key="i"/>
+      <EventCardComponent v-for="i in 8" :key="i" title="Internship/Job 2026" time="2026-08-01" description="Please let this happen!"/>
     </section>
     <h2 class="text-xl text-center text-teal-800 underline">Your Booked Events</h2>
   </main>
