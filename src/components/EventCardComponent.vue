@@ -9,7 +9,7 @@
 
         <section class="flex justify-end gap-2 p-2">
             <Button @click="$emit('register')" eventtext="Register" />
-            <Button @click="$emit('dropout')" eventtext="Drop Out" />
+            <Button @click="$emit('dropout')" eventtext="Drop Out" variant="red" />
         </section>
         <!-- buttons to trigger registration/deregistration events emitted to parent component -->
     </div>

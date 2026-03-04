@@ -1,12 +1,27 @@
 <template>
-    <button @click="$emit('clickevent')" class="bg-teal-200 text-white px-4 py-2 rounded hover:bg-teal-400">
+    <button @click="$emit('clickevent')" :class="buttonClasses">
                 {{ eventtext }}
             </button>
 </template>
 
 <script setup>
-    defineProps({
-        eventtext: String
+    import { computed } from 'vue';
+
+    const props = defineProps({
+        eventtext: String,
+        variant: {
+            type: String,
+            default: 'teal'
+        }
         //text to display on button, passed from parent component via props
+    });
+
+    const buttonClasses = computed(() => {
+        const baseClasses = 'text-white px-4 py-2 rounded';
+        if (props.variant === 'red') {
+            return `${baseClasses} bg-red-200 hover:bg-red-400`;
+        } else {
+            return `${baseClasses} bg-teal-200 hover:bg-teal-400`;
+        }
     });
 </script>
