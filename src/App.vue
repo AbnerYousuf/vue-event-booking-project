@@ -19,11 +19,21 @@
     </section>
     
     <h2 class="text-xl text-center text-teal-800 underline">Your Booked Events</h2>
+
+      <section class="grid grid-cols-1 gap-4">
+
+      <BookedEventCardComponent v-for="i in 8" :key="i" 
+      title="Internship/Job 2026"
+      @dropout="console.log('Dropout Event Emitted!')"
+      />
+      <!-- dummy data for 8 event cards -->
+    </section>
     <!-- section to display user's booked events, currently empty bc its unimplemented -->
   </main>
 </template>
 
 <script setup>
   import EventCardComponent from '@/components/EventCardComponent.vue';
+import BookedEventCardComponent from './components/BookedEventCardComponent.vue';
   //importing the EventCardComponent to be used in this parent component
 </script>
