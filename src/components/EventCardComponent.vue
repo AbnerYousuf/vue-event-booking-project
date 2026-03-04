@@ -8,12 +8,8 @@
         <!-- display event information passed from parent component via props -->
 
         <section class="flex justify-end gap-2 p-2">
-            <button @click="$emit('register')" class="bg-teal-200 text-white px-4 py-2 rounded hover:bg-teal-400">
-                Register
-            </button>
-            <button @click="$emit('dropout')" class="bg-red-200 text-white px-4 py-2 rounded hover:bg-red-400">
-                Drop Out
-            </button>
+            <Button @click="$emit('register')" eventtext="Register" />
+            <Button @click="$emit('dropout')" eventtext="Drop Out" />
         </section>
         <!-- buttons to trigger registration/deregistration events emitted to parent component -->
     </div>
@@ -21,6 +17,8 @@
 </template>
 
 <script setup>
+    import Button from '@/components/Button.vue';
+    //importing the Button component to be used within this EventCardComponent
     defineProps({
         title: String,
         time: String,
