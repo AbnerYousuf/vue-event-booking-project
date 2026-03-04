@@ -6,7 +6,7 @@
 
 <script setup>
     import { computed } from 'vue';
-
+    defineEmits(['clickevent']);
     const props = defineProps({
         eventtext: String,
         variant: {
