@@ -2,13 +2,13 @@
 
     <SectionedCardComponent>
 
-        <h3 class="text-lg font-semibold text-teal-800 p-2">{{ title }}</h3>
-        <!-- display event information passed from parent component via props -->
-
         <section class="flex justify-between gap-2 p-2">
+            <h3 class="text-lg font-semibold text-teal-800 p-2">{{ title }}</h3>
+            <!-- display event information passed from parent component via props -->
+
             <ButtonComponent @clickevent="$emit('dropout')" eventtext="Drop Out" variant="red" />
+            <!-- button to trigger deregistration event emitted to parent component -->
         </section>
-        <!-- buttons to trigger registration/deregistration events emitted to parent component -->
     </SectionedCardComponent>
 
 </template>
