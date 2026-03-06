@@ -8,10 +8,10 @@
     
     <section class="grid grid-cols-2 gap-4">
 
-      <EventCardComponent v-for="i in 8" :key="i" 
-      title="Internship/Job 2026"
-      time="2026-08-01"
-      description="Please let this happen!"
+      <EventCardComponent v-for="event in eventlist" :key="event.id" 
+      :title="event.title"
+      :time="event.date"
+      :description="event.description"
       @register="console.log('Register Event Emitted!')"
       @dropout="console.log('Dropout Event Emitted!')"
       />
