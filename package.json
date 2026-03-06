@@ -11,7 +11,7 @@
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
-    "server": "json-server --watch db.json --port 3420 --delay 5000"
+    "server": "json-server --watch db.json --port 3420 --delay 2000"
   },
   "dependencies": {
     "vue": "^3.5.27"

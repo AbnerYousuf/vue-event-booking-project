@@ -33,7 +33,27 @@
 </template>
 
 <script setup>
+  import { ref, onMounted } from 'vue';
+
   import EventCardComponent from '@/components/EventCardComponent.vue';
-import BookedEventCardComponent from './components/BookedEventCardComponent.vue';
-  //importing the EventCardComponent to be used in this parent component
+  import BookedEventCardComponent from './components/BookedEventCardComponent.vue';
+  //importing the cards to be used in this parent component
+
+  const eventlist = ref([]);
+  //state to hold list of events
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('http://localhost:3420/events');
+      eventlist.value = await response.json();
+      console.log('Fetched events:', eventlist.value);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
+
+  onMounted(() => {
+    fetchEvents();
+  });
+  //fetch events from backend API on component mount
+
 </script>
