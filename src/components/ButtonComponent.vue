@@ -19,7 +19,7 @@
     const buttonClasses = computed(() => {
         const baseClasses = 'text-white px-4 py-2 rounded';
         if (props.variant === 'red') {
-            return `${baseClasses} bg-red-200 hover:bg-red-400`;
+            return `${baseClasses} bg-red-200 enabled:hover:bg-red-400`;
         } else {
             return `${baseClasses} bg-teal-200 hover:bg-teal-400`;
         }
