@@ -1,20 +1,20 @@
 <template>
 
-    <BaseCardComponent>
+    <SectionedCardComponent>
 
         <h3 class="text-lg font-semibold text-teal-800 p-2">{{ title }}</h3>
         <!-- display event information passed from parent component via props -->
 
         <section class="flex justify-end gap-2 p-2">
-            <Button @clickevent="$emit('register')" eventtext="Register" />
             <Button @clickevent="$emit('dropout')" eventtext="Drop Out" variant="red" />
         </section>
         <!-- buttons to trigger registration/deregistration events emitted to parent component -->
-    </BaseCardComponent>
+    </SectionedCardComponent>
 
 </template>
 
 <script setup>
+    import SectionedCardComponent from '@/components/SectionedCardComponent.vue';
     import BaseCardComponent from '@/components/BaseCardComponent.vue';
     import Button from '@/components/Button.vue';
     //importing the Button component to be used within this EventCardComponent
