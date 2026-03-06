@@ -6,7 +6,7 @@
         <!-- display event information passed from parent component via props -->
 
         <section class="flex justify-end gap-2 p-2">
-            <Button @clickevent="$emit('dropout')" eventtext="Drop Out" variant="red" />
+            <ButtonComponent @clickevent="$emit('dropout')" eventtext="Drop Out" variant="red" />
         </section>
         <!-- buttons to trigger registration/deregistration events emitted to parent component -->
     </SectionedCardComponent>
@@ -15,9 +15,7 @@
 
 <script setup>
     import SectionedCardComponent from '@/components/SectionedCardComponent.vue';
-    import BaseCardComponent from '@/components/BaseCardComponent.vue';
-    import Button from '@/components/Button.vue';
-    //importing the Button component to be used within this EventCardComponent
+    import ButtonComponent from '@/components/ButtonComponent.vue';
     defineProps({
         title: String
     });

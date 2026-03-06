@@ -11,7 +11,7 @@
         </template>
         <template #buttons>
             <div class="flex justify-end gap-2">
-                <Button @clickevent="$emit('register')" eventtext="Register" />
+                <ButtonComponent @clickevent="$emit('register')" eventtext="Register" />
             </div>
             <!-- buttons to trigger registration/deregistration events emitted to parent component -->
         </template>
@@ -20,9 +20,7 @@
 
 <script setup>
     import SectionedCardComponent from '@/components/SectionedCardComponent.vue';
-    import BaseCardComponent from '@/components/BaseCardComponent.vue';
-    import Button from '@/components/Button.vue';
-    //importing the Button component to be used within this EventCardComponent
+    import ButtonComponent from '@/components/ButtonComponent.vue';
     defineProps({
         title: String,
         time: String,
