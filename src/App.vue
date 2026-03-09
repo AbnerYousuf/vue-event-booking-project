@@ -35,7 +35,7 @@
         </template>
         <!-- v-else -->
         <template v-else>
-          <LoadingCardComponent v-for="i in 16" :key="i"/>
+          <LoadingBookingComponent v-for="i in 4" :key="i"/>
         </template>
        <!-- if events are still loading, show the loading card component instead of event cards -->
       </section>
@@ -47,6 +47,7 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import LoadingCardComponent from '@/components/LoadingCardComponent.vue';
+  import LoadingBookingComponent from '@/components/LoadingBookingComponent.vue';
   import EventCardComponent from '@/components/EventCardComponent.vue';
   import BookedEventCardComponent from './components/BookedEventCardComponent.vue';
   //importing the cards to be used in this parent component
