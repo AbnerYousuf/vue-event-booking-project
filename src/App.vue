@@ -14,7 +14,6 @@
         :time="event.date"
         :description="event.description"
         @register="registerForEvent(event)"
-        @dropout="console.log('Dropout Event Emitted!')"
         />
       </template>
       <!-- v-else -->
