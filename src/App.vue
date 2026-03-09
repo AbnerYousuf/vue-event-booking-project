@@ -26,13 +26,20 @@
     <h2 class="text-xl text-center text-teal-800 underline">Your Booked Events</h2>
 
       <section class="grid grid-cols-1 gap-4">
+        <template v-if="loadingBookings == false">
+          <BookedEventCardComponent
+          v-for="booking in bookingList" :key="booking.bookingID" 
+          :title="booking.eventTitle"
+          @dropout="console.log('Dropout Event Emitted!')"
+          />
+        </template>
+        <!-- v-else -->
+        <template v-else>
+          <LoadingCardComponent v-for="i in 16" :key="i"/>
+        </template>
+       <!-- if events are still loading, show the loading card component instead of event cards -->
+      </section>
 
-      <BookedEventCardComponent v-for="i in 8" :key="i" 
-      title="Internship/Job 2026"
-      @dropout="console.log('Dropout Event Emitted!')"
-      />
-      <!-- dummy data for 8 event cards -->
-    </section>
     <!-- section to display user's booked events, currently empty bc its unimplemented -->
   </main>
 </template>
@@ -45,8 +52,11 @@
   //importing the cards to be used in this parent component
 
   const eventlist = ref([]);
+  const bookingList = ref([]);
   //state to hold list of events
   const currentlyLoading = ref(false);
+  const loadingBookings = ref(false);
+  //state to hold loading status for events and bookings
 
   const fetchEvents = async () => {
     try {
@@ -62,10 +72,25 @@
     }
   };
 
+  const fetchBookings = async () => {
+    try {
+      loadingBookings.value = true;
+      const response = await fetch('http://localhost:3420/bookings');
+      bookingList.value = await response.json();
+      console.log('Fetched bookings successfully!');
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    }
+    finally {
+      loadingBookings.value = false;
+    }
+  };
+
   onMounted(() => {
     fetchEvents();
+    fetchBookings();
   });
-  //fetch events from backend API on component mount
+  //fetch events and bookings from backend API on component mount
 
   const registerForEvent = async (event) => {
     console.log(`Registering for event with ID: ${event.id}`);
