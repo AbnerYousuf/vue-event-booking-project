@@ -13,7 +13,7 @@
         :title="event.title"
         :time="event.date"
         :description="event.description"
-        @register="console.log('Register Event Emitted!')"
+        @register="registerForEvent(event)"
         @dropout="console.log('Dropout Event Emitted!')"
         />
       </template>
@@ -67,5 +67,41 @@
     fetchEvents();
   });
   //fetch events from backend API on component mount
+
+  const registerForEvent = async (event) => {
+    console.log(`Registering for event with ID: ${event.id}`);
+    // Implement registration logic here, e.g., send POST request to backend
+    const eventToBook = {
+      bookingID: Date.now(), // Generate a unique ID for the booked event
+      userID: 2, // Example user ID, replace with actual user ID from authentication
+      eventID: event.id,
+      eventTitle: event.title
+    };
+
+    await fetch('http://localhost:3420/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...eventToBook, //spread operator copies every element from eventToBook object into the body of the POST request
+        status: 'booked' // Add a status field to indicate the booking status
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Event booked successfully:', data);
+      // Optionally, update the UI to reflect the new booking
+    })
+    .catch(error => { 
+      console.error('Error booking event:', error);
+    });
+
+  };
 
 </script>
