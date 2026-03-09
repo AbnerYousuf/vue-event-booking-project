@@ -1,5 +1,5 @@
 <template>
-    <button @click="$emit('clickevent')" :class="buttonClasses">
+    <button @click="$emit('clickevent')" :class="buttonClasses" :disabled="disabled">
                 {{ eventtext }}
             </button>
 </template>
@@ -12,16 +12,28 @@
         variant: {
             type: String,
             default: 'teal'
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
         //text to display on button, passed from parent component via props
     });
 
     const buttonClasses = computed(() => {
         const baseClasses = 'text-white px-4 py-2 rounded';
-        if (props.variant === 'red') {
-            return `${baseClasses} bg-red-200 enabled:hover:bg-red-400`;
+        if (props.disabled) {
+            if (props.variant === 'red') {
+                return `${baseClasses} bg-red-200`;
+            } else {
+                return `${baseClasses} bg-teal-200`;
+            }
         } else {
-            return `${baseClasses} bg-teal-200 hover:bg-teal-400`;
+            if (props.variant === 'red') {
+                return `${baseClasses} bg-red-200 enabled:hover:bg-red-400`;
+            } else {
+                return `${baseClasses} bg-teal-200 hover:bg-teal-400`;
+            }
         }
     });
 </script>
