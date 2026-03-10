@@ -28,8 +28,10 @@
       <section class="grid grid-cols-1 gap-4">
         <template v-if="loadingBookings == false">
           <BookedEventCardComponent
-          v-for="booking in bookingList" :key="booking.bookingID" 
+          v-for="booking in bookingList"
+          :key="booking.bookingID" 
           :title="booking.eventTitle"
+          :status="booking.status"
           @dropout="console.log('Dropout Event Emitted!')"
           />
         </template>
@@ -94,6 +96,11 @@
   //fetch events and bookings from backend API on component mount
 
   const registerForEvent = async (event) => {
+    if (bookingList.value.some(booking => booking.eventID === event.id && booking.userID === 2)) {
+      alert('You\'re already registered for this event!');
+      return;
+    }
+
     console.log(`Registering for event with ID: ${event.id}`);
     // Implement registration logic here, e.g., send POST request to backend
     const eventToBook = {
@@ -101,35 +108,38 @@
       userID: 2, // Example user ID, replace with actual user ID from authentication
       eventID: event.id,
       eventTitle: event.title,
-      status: 'booking' //status is in progress, basically
+      status: 'Booking' //status is in progress, basically
     };
     bookingList.value.push(eventToBook); //update the UI with the new booking
 
-    await fetch('http://localhost:3420/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...eventToBook, //spread operator copies every element from eventToBook object into the body of the POST request
-        status: 'booked' // Add a status field to indicate the booking status
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        status: 'unbooked' //there was an issue
-        throw new Error('Network response was not ok');
+    try {
+      const response = await fetch('http://localhost:3420/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...eventToBook, //spread operator copies every element from eventToBook object into the body of the POST request
+          status: 'Booked' // Add a status field to indicate the booking status
+        })
+      });
+    
+      if (response.ok) {
+        const index = bookingList.value.findIndex(booking => booking.bookingID === eventToBook.bookingID);
+        bookingList.value[index] = await response.json();
+        //update the booking in the UI with the response from the backend, which includes the updated status
       }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Event booked successfully:', data);
-      // Optionally, update the UI to reflect the new booking
-    })
-    .catch(error => { 
-      status: 'unbooked' //there was an issue
-      console.error('Error booking event:', error);
-    });
+      else {
+        throw new Error('Event registration failed :()');
+      }
+
+    }
+    catch (error) {
+        console.error('Error registering for event:', error);
+        bookingList.value = bookingList.value.filter(booking => booking.bookingID !== eventToBook.bookingID);
+        //remove the booking from the UI if the registration fails
+    }
+    ;
 
   };
 
