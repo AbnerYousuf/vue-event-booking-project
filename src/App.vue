@@ -100,7 +100,8 @@
       bookingID: Date.now(), // Generate a unique ID for the booked event
       userID: 2, // Example user ID, replace with actual user ID from authentication
       eventID: event.id,
-      eventTitle: event.title
+      eventTitle: event.title,
+      status: 'booking' //status is in progress, basically
     };
 
     await fetch('http://localhost:3420/bookings', {
@@ -115,6 +116,7 @@
     })
     .then(response => {
       if (!response.ok) {
+        status: 'unbooked' //there was an issue
         throw new Error('Network response was not ok');
       }
       return response.json();
@@ -124,6 +126,7 @@
       // Optionally, update the UI to reflect the new booking
     })
     .catch(error => { 
+      status: 'unbooked' //there was an issue
       console.error('Error booking event:', error);
     });
 
