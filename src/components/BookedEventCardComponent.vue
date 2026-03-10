@@ -26,6 +26,6 @@
     });
     //props to handle event information passed from parent component
 
-    defineEmits(['register','dropout'])
+    defineEmits(['dropout'])
     //events to handle event registration/deregistration
 </script>

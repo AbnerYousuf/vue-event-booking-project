@@ -32,7 +32,7 @@
           :key="booking.bookingID" 
           :title="booking.eventTitle"
           :status="booking.status"
-          @dropout="console.log('Dropout Event Emitted!')"
+          @dropout="dropoutOfEvent(booking)"
           />
         </template>
         <!-- v-else -->
@@ -95,6 +95,10 @@
   });
   //fetch events and bookings from backend API on component mount
 
+  const findBookedEvent = (ID) => {
+    return bookingList.value.find(booking => booking.ID === ID && booking.userID === 2);
+  };
+
   const registerForEvent = async (event) => {
     if (bookingList.value.some(booking => booking.eventID === event.id && booking.userID === 2)) {
       alert('You\'re already registered for this event!');
@@ -138,6 +142,31 @@
         console.error('Error registering for event:', error);
         bookingList.value = bookingList.value.filter(booking => booking.bookingID !== eventToBook.bookingID);
         //remove the booking from the UI if the registration fails
+    }
+    ;
+
+  };
+
+  const dropoutOfEvent = async (bookingID) => {
+    console.log(`Dropping out of event with booking ID: ${bookingID}`);
+    // Implement dropout logic here, e.g., send DELETE request to backend
+    const index = findBookedEvent(bookingID);
+    const eventToDrop = bookingList.value[index];
+    bookingList.value.splice(index, 1);
+    //optimistically update the UI by removing the booking immediately
+    try {
+      const response = await fetch(`http://localhost:3420/bookings/${bookingID}`, {
+        method: 'DELETE'
+      });
+    
+      if (!response.ok) {
+        throw new Error('Event dropout failed :(');
+      }
+    }
+    catch (error) {
+        console.error('Error dropping out of event:', error);
+        bookingList.value.splice(index, 0, eventToDrop);
+        //if the dropout fails, optimisically revert the UI back to showing the booking by adding it back
     }
     ;
 
