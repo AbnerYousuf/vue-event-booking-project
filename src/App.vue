@@ -103,6 +103,7 @@
       eventTitle: event.title,
       status: 'booking' //status is in progress, basically
     };
+    bookingList.value.push(eventToBook); //update the UI with the new booking
 
     await fetch('http://localhost:3420/bookings', {
       method: 'POST',
